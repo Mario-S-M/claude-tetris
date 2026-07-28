@@ -23,8 +23,8 @@ Three files, no dependencies, no framework:
 
 | Concern | Key identifiers |
 |---|---|
-| Board state | `board` — `ROWS×COLS` matrix; `0` = empty, `1–7` = piece color index |
-| Pieces | `PIECES` — array of matrix shapes indexed 1–7; `COLORS` maps the same indices to hex strings |
+| Board state | `board` — `ROWS×COLS` matrix; `0` = empty, `1–8` = piece color index |
+| Pieces | `PIECES` — array of matrix shapes indexed 1–7 (standard tetrominoes) plus `8` (3×3 ring/"anillo" challenge piece with a hollow center, spawned rarely — `RING_CHANCE = 0.08` in `randomPiece()`); `COLORS` maps the same indices to hex strings |
 | Active piece | `current` / `next` — `{ type, shape, x, y }` objects |
 | Collision | `collide(shape, ox, oy)` — boundary + board overlap check |
 | Rotation | `rotateCW(shape)` — transpose + reverse; `tryRotate()` applies wall kicks `[0, ±1, ±2]` |
