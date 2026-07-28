@@ -42,9 +42,14 @@ const overlayTitle = document.getElementById('overlay-title');
 const overlayScore = document.getElementById('overlay-score');
 const restartBtn = document.getElementById('restart-btn');
 const themeToggle = document.getElementById('theme-toggle');
+const resumeBtn = document.getElementById('resume-btn');
+const controlsToggleBtn = document.getElementById('controls-toggle-btn');
+const pauseControlsPanel = document.getElementById('pause-controls-panel');
+const startLevelInput = document.getElementById('start-level-select');
+const startLevelValue = document.getElementById('start-level-value');
 
 let board, current, next, score, lines, level, paused, gameOver, lastTime, dropAccum, dropInterval, animId;
-let theme, gridColor;
+let theme, gridColor, startLevel;
 
 function getStoredTheme() {
   try {
@@ -62,6 +67,24 @@ function applyTheme() {
   gridColor = getComputedStyle(document.body).getPropertyValue('--grid-color').trim();
   try {
     localStorage.setItem('theme', theme);
+  } catch (e) {
+    // ignore write failures (e.g. private browsing)
+  }
+}
+
+function getStoredStartLevel() {
+  try {
+    const stored = parseInt(localStorage.getItem('startLevel'), 10);
+    if (Number.isInteger(stored) && stored >= 1 && stored <= 15) return stored;
+  } catch (e) {
+    // localStorage unavailable (e.g. private browsing) - fall back to default
+  }
+  return 1;
+}
+
+function storeStartLevel(value) {
+  try {
+    localStorage.setItem('startLevel', String(value));
   } catch (e) {
     // ignore write failures (e.g. private browsing)
   }
@@ -256,12 +279,15 @@ function togglePause() {
   if (gameOver) return;
   paused = !paused;
   if (!paused) {
+    overlay.classList.add('hidden');
+    overlay.classList.remove('overlay-paused');
     lastTime = performance.now();
     loop(lastTime);
   } else {
     cancelAnimationFrame(animId);
     overlayTitle.textContent = 'PAUSA';
     overlayScore.textContent = '';
+    overlay.classList.add('overlay-paused');
     overlay.classList.remove('hidden');
   }
 }
@@ -286,25 +312,32 @@ function loop(ts) {
 function init() {
   theme = getStoredTheme();
   applyTheme();
+  startLevel = getStoredStartLevel();
+  if (startLevelInput) {
+    startLevelInput.value = startLevel;
+    startLevelValue.textContent = startLevel;
+  }
   board = createBoard();
   score = 0;
   lines = 0;
-  level = 1;
+  level = startLevel;
   paused = false;
   gameOver = false;
-  dropInterval = 1000;
+  dropInterval = Math.max(100, 1000 - (startLevel - 1) * 90);
   dropAccum = 0;
   lastTime = performance.now();
   next = randomPiece();
   spawn();
   updateHUD();
   overlay.classList.add('hidden');
+  overlay.classList.remove('overlay-paused');
+  if (pauseControlsPanel) pauseControlsPanel.classList.add('hidden');
   cancelAnimationFrame(animId);
   animId = requestAnimationFrame(loop);
 }
 
 document.addEventListener('keydown', e => {
-  if (e.code === 'KeyP') { togglePause(); return; }
+  if (e.code === 'KeyP' || e.code === 'Escape') { togglePause(); return; }
   if (paused || gameOver) return;
   switch (e.code) {
     case 'ArrowLeft':
@@ -329,6 +362,20 @@ document.addEventListener('keydown', e => {
 });
 
 restartBtn.addEventListener('click', init);
+
+resumeBtn.addEventListener('click', () => {
+  if (paused) togglePause();
+});
+
+controlsToggleBtn.addEventListener('click', () => {
+  pauseControlsPanel.classList.toggle('hidden');
+});
+
+startLevelInput.addEventListener('input', () => {
+  const value = parseInt(startLevelInput.value, 10);
+  startLevelValue.textContent = value;
+  storeStartLevel(value);
+});
 
 themeToggle.addEventListener('change', () => {
   theme = themeToggle.checked ? 'light' : 'dark';
