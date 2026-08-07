@@ -48,6 +48,37 @@ body.light-theme {
   --restart-hover: #5a76e8;
 }
 
+/* ---- Skins ----
+   Van después de los temas para poder sobrescribir el fondo del tablero.
+   `retro` no declara nada: usa los valores del tema activo. */
+body.skin-neon {
+  --board-bg: #06060c;
+  --grid-color: #142238;
+  --board-border: #2a3f6a;
+}
+
+body.skin-neon #board {
+  box-shadow: 0 0 40px rgba(0, 240, 255, 0.22), inset 0 0 60px rgba(0, 0, 0, 0.7);
+}
+
+body.skin-pastel {
+  --board-bg: #201e2a;
+  --grid-color: #2b2838;
+  --board-border: #3b3550;
+}
+
+body.skin-pastel.light-theme {
+  --board-bg: #fdfbff;
+  --grid-color: #ece5f5;
+  --board-border: #ded4ea;
+}
+
+body.skin-pixel {
+  --board-bg: #14141c;
+  --grid-color: #20202c;
+  --board-border: #3a3a4a;
+}
+
 body {
   background: var(--bg);
   color: var(--text);
@@ -126,6 +157,26 @@ body {
   background: var(--board-bg);
   border-radius: 4px;
   transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+/* ---- Selector de skin ---- */
+.skin-select {
+  width: 100%;
+  background: var(--kbd-bg);
+  color: var(--text);
+  border: 1px solid var(--kbd-border);
+  border-radius: 4px;
+  padding: 6px 8px;
+  font-family: inherit;
+  font-size: 12px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.skin-select:focus-visible {
+  outline: 2px solid var(--value-color);
+  outline-offset: 2px;
 }
 
 /* ---- Theme switch ---- */

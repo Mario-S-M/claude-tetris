@@ -24,7 +24,8 @@ Three files, no dependencies, no framework:
 | Concern | Key identifiers |
 |---|---|
 | Board state | `board` — `ROWS×COLS` matrix; `0` = empty, `1–8` = piece color index |
-| Pieces | `PIECES` — array of matrix shapes indexed 1–7 (standard tetrominoes) plus `8` (3×3 ring/"anillo" challenge piece with a hollow center, spawned rarely — `RING_CHANCE = 0.08` in `randomPiece()`); `COLORS` maps the same indices to hex strings |
+| Pieces | `PIECES` — array of matrix shapes indexed 1–7 (standard tetrominoes) plus `8` (3×3 ring/"anillo" challenge piece with a hollow center, spawned rarely — `RING_CHANCE = 0.08` in `randomPiece()`) |
+| Skins | `SKINS` — `retro` / `neon` / `pastel` / `pixel`, each with `label`, `colors` (indexed like `PIECES`), `ghostAlpha`, and a `block(ctx, px, py, size, color, alpha)` renderer. `applySkin()` sets a `body.skin-<name>` class so CSS can override `--board-bg` / `--grid-color`; persisted in `localStorage` under `skin` |
 | Active piece | `current` / `next` — `{ type, shape, x, y }` objects |
 | Collision | `collide(shape, ox, oy)` — boundary + board overlap check |
 | Rotation | `rotateCW(shape)` — transpose + reverse; `tryRotate()` applies wall kicks `[0, ±1, ±2]` |
@@ -34,8 +35,8 @@ Three files, no dependencies, no framework:
 | Speed | `speedFor(level)` → `max(100, 1000 − (level−1) × 90)` ms |
 | Pause menu | `pause()` / `resume()` / `togglePause()`; `showMenuView('main' \| 'controls')` swaps the two views inside `#pause-menu`; `handleMenuKey()` owns all keys while paused (game input is blocked) |
 | Start level | `startLevel` (1–`MAX_LEVEL`), set via `setStartLevel()`, persisted in `localStorage`; applies on the next `init()`. In-game level is `startLevel + floor(lines / 10)` |
-| Ghost piece | `ghostY()` projects landing row; drawn at `globalAlpha = 0.2` |
-| Rendering | `draw()` clears canvas, draws grid → board → ghost → current piece; `drawNext()` for sidebar |
+| Ghost piece | `ghostY()` projects landing row; drawn at the active skin's `ghostAlpha` |
+| Rendering | `draw()` clears canvas, draws grid → board → ghost → current piece; `drawNext()` for sidebar. `drawBlock()` only resolves the color and delegates to the active skin's `block()`; `redrawAll()` repaints both canvases outside the loop (theme/skin changes while paused or game over) |
 | Entry point | `init()` resets all state and starts the loop; called on load and on restart button click |
 
 ### Game flow
