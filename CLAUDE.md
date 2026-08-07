@@ -31,7 +31,9 @@ Three files, no dependencies, no framework:
 | Game loop | `loop(ts)` via `requestAnimationFrame`; `dropAccum` + `dropInterval` drive gravity |
 | Line clear | `clearLines()` — splice + unshift on `board`; updates score, lines, level, `dropInterval` |
 | Scoring | `LINE_SCORES = [0,100,300,500,800]` × level; hard drop +2/cell, soft drop +1/row |
-| Speed | `dropInterval = max(100, 1000 − (level−1) × 90)` ms |
+| Speed | `speedFor(level)` → `max(100, 1000 − (level−1) × 90)` ms |
+| Pause menu | `pause()` / `resume()` / `togglePause()`; `showMenuView('main' \| 'controls')` swaps the two views inside `#pause-menu`; `handleMenuKey()` owns all keys while paused (game input is blocked) |
+| Start level | `startLevel` (1–`MAX_LEVEL`), set via `setStartLevel()`, persisted in `localStorage`; applies on the next `init()`. In-game level is `startLevel + floor(lines / 10)` |
 | Ghost piece | `ghostY()` projects landing row; drawn at `globalAlpha = 0.2` |
 | Rendering | `draw()` clears canvas, draws grid → board → ghost → current piece; `drawNext()` for sidebar |
 | Entry point | `init()` resets all state and starts the loop; called on load and on restart button click |
@@ -44,7 +46,7 @@ init()
        loop(ts): accumulate dt → gravity drop or lockPiece()
                  lockPiece(): merge() → clearLines() → spawn()
                  draw() every frame
-keydown → move / tryRotate / softDrop / hardDrop / togglePause
+keydown → paused ? handleMenuKey() : move / tryRotate / softDrop / hardDrop / pause()
 spawn() collision on entry → endGame()
 ```
 
