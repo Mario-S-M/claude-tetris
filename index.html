@@ -35,6 +35,10 @@
           <span class="label">LEVEL</span>
           <span class="value" id="level">1</span>
         </div>
+        <div class="panel-section">
+          <span class="label">COMBO</span>
+          <span class="value" id="combo">—</span>
+        </div>
 
         <div class="panel-section">
           <span class="label">NEXT</span>
@@ -54,11 +58,32 @@
       </aside>
     </div>
 
+    <div id="start-screen" class="overlay">
+      <div class="overlay-box">
+        <p class="overlay-heading">TETRIS</p>
+        <div class="records" id="start-records"></div>
+        <button id="play-btn">Jugar</button>
+        <button class="link-btn" id="reset-start">Resetear records</button>
+      </div>
+    </div>
+
     <div id="overlay" class="overlay hidden">
       <div class="overlay-box">
         <p id="overlay-title">GAME OVER</p>
         <p id="overlay-score"></p>
+
+        <form id="name-form" class="name-form hidden">
+          <p class="new-record-msg">¡Entras en el TOP 5!</p>
+          <div class="name-row">
+            <input id="name-input" type="text" maxlength="12" placeholder="Tu nombre"
+                   autocomplete="off" aria-label="Nombre del jugador" />
+            <button type="submit">Guardar</button>
+          </div>
+        </form>
+
+        <div class="records hidden" id="overlay-records"></div>
         <button id="restart-btn">Reiniciar</button>
+        <button class="link-btn hidden" id="reset-overlay">Resetear records</button>
       </div>
     </div>
   </div>

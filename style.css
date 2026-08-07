@@ -24,6 +24,11 @@
   --restart-bg: #7aa2f7;
   --restart-text: #0f0f17;
   --restart-hover: #9bbdff;
+  --card-bg: rgba(26, 26, 37, 0.92);
+  --card-border: #2a2a3a;
+  --row-alt: rgba(255, 255, 255, 0.03);
+  --highlight-bg: rgba(122, 162, 247, 0.22);
+  --input-bg: #14141f;
 }
 
 body.light-theme {
@@ -46,6 +51,11 @@ body.light-theme {
   --restart-bg: #3b5bdb;
   --restart-text: #ffffff;
   --restart-hover: #5a76e8;
+  --card-bg: rgba(255, 255, 255, 0.94);
+  --card-border: #c7c7d6;
+  --row-alt: rgba(0, 0, 0, 0.035);
+  --highlight-bg: rgba(59, 91, 219, 0.16);
+  --input-bg: #ffffff;
 }
 
 body {
@@ -223,6 +233,19 @@ kbd {
   flex-direction: column;
   gap: 12px;
   align-items: center;
+  width: min(320px, 90%);
+  padding: 20px 18px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+}
+
+.overlay-heading {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 8px;
+  color: var(--title-color);
 }
 
 #overlay-title {
@@ -252,6 +275,208 @@ kbd {
   transition: background 0.15s;
 }
 
-#restart-btn:hover {
+#restart-btn:hover,
+#play-btn:hover {
   background: var(--restart-hover);
+}
+
+#play-btn {
+  background: var(--restart-bg);
+  color: var(--restart-text);
+  border: none;
+  border-radius: 6px;
+  padding: 10px 28px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: background 0.15s;
+}
+
+/* ---- Tabla de records ---- */
+.records {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.records.hidden {
+  display: none;
+}
+
+.records-title {
+  font-size: 10px;
+  letter-spacing: 2px;
+  font-weight: 600;
+  color: var(--label-color);
+}
+
+.records-empty {
+  font-size: 12px;
+  color: var(--controls-text);
+  padding: 8px 0;
+}
+
+.records-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+}
+
+.records-table th {
+  font-size: 9px;
+  letter-spacing: 1px;
+  font-weight: 600;
+  color: var(--label-color);
+  text-align: right;
+  padding: 0 4px 4px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.records-table th:nth-child(1),
+.records-table th:nth-child(2) {
+  text-align: left;
+}
+
+.records-table td {
+  padding: 5px 4px;
+  text-align: right;
+  color: var(--text);
+}
+
+.records-table td:nth-child(1),
+.records-table td:nth-child(2) {
+  text-align: left;
+}
+
+.records-table td:nth-child(1) {
+  color: var(--label-color);
+  width: 1.4em;
+}
+
+.records-table td:nth-child(2) {
+  max-width: 8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.records-table td:nth-child(3) {
+  color: var(--value-color);
+  font-weight: 700;
+}
+
+.records-table tbody tr:nth-child(even) {
+  background: var(--row-alt);
+}
+
+.records-table tbody tr.highlight {
+  background: var(--highlight-bg);
+  animation: record-pulse 0.6s ease-in-out 3;
+}
+
+.records-table tbody tr.highlight td {
+  font-weight: 700;
+}
+
+@keyframes record-pulse {
+  50% { background: transparent; }
+}
+
+.records-stats {
+  font-size: 11px;
+  color: var(--controls-text);
+  padding-top: 2px;
+  border-top: 1px solid var(--card-border);
+}
+
+.records-stats b {
+  color: var(--value-color);
+}
+
+/* ---- Formulario de nombre ---- */
+.name-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.name-form.hidden {
+  display: none;
+}
+
+.new-record-msg {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--overlay-score-color);
+}
+
+.name-row {
+  display: flex;
+  gap: 6px;
+}
+
+#name-input {
+  flex: 1;
+  min-width: 0;
+  background: var(--input-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--text);
+}
+
+#name-input:focus-visible {
+  outline: 2px solid var(--value-color);
+  outline-offset: 1px;
+}
+
+.name-form button {
+  background: var(--restart-bg);
+  color: var(--restart-text);
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.name-form button:hover {
+  background: var(--restart-hover);
+}
+
+/* ---- Botón secundario (resetear) ---- */
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--controls-text);
+  font-family: inherit;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  padding: 2px 6px;
+  text-decoration: underline;
+  transition: color 0.15s;
+}
+
+.link-btn:hover {
+  color: var(--overlay-title-color);
+}
+
+.link-btn.confirming {
+  color: var(--overlay-title-color);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.link-btn.hidden {
+  display: none;
 }
