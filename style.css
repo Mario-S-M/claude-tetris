@@ -24,6 +24,11 @@
   --restart-bg: #7aa2f7;
   --restart-text: #0f0f17;
   --restart-hover: #9bbdff;
+  --highlight-bg: rgba(255, 213, 79, 0.16);
+  --highlight-text: #ffd54f;
+  --secondary-btn-bg: transparent;
+  --secondary-btn-border: #3a3a5a;
+  --secondary-btn-text: #888;
 }
 
 body.light-theme {
@@ -46,6 +51,11 @@ body.light-theme {
   --restart-bg: #3b5bdb;
   --restart-text: #ffffff;
   --restart-hover: #5a76e8;
+  --highlight-bg: rgba(59, 91, 219, 0.14);
+  --highlight-text: #d1453b;
+  --secondary-btn-bg: transparent;
+  --secondary-btn-border: #c7c7d6;
+  --secondary-btn-text: #6b6b85;
 }
 
 body {
@@ -344,4 +354,148 @@ kbd {
 
 #restart-btn:hover {
   background: var(--restart-hover);
+}
+
+.secondary-btn {
+  margin-top: 0;
+  background: var(--secondary-btn-bg);
+  color: var(--secondary-btn-text);
+  border: 1px solid var(--secondary-btn-border);
+  border-radius: 6px;
+  padding: 8px 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.secondary-btn:hover {
+  color: var(--text);
+  border-color: var(--value-color);
+}
+
+/* ---- Start screen ---- */
+.start-title {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 6px;
+  color: var(--title-color);
+  text-shadow: 0 0 16px var(--title-shadow);
+}
+
+/* ---- Highscores ---- */
+.highscores {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 220px;
+}
+
+.highscores.hidden {
+  display: none;
+}
+
+.highscores-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--label-color);
+}
+
+.highscores-list {
+  list-style: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.highscore-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.highscore-row.highlight {
+  background: var(--highlight-bg);
+  color: var(--highlight-text);
+  font-weight: 700;
+}
+
+.hs-rank {
+  width: 16px;
+  color: var(--label-color);
+}
+
+.hs-name {
+  flex: 1;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hs-score {
+  text-align: right;
+}
+
+.highscore-empty {
+  font-size: 12px;
+  color: var(--controls-text);
+  list-style: none;
+  padding: 4px 0;
+}
+
+.stats-row {
+  display: flex;
+  gap: 16px;
+  font-size: 11px;
+  color: var(--controls-text);
+}
+
+.stats-row strong {
+  color: var(--value-color);
+}
+
+/* ---- Overlay highscore name form ---- */
+.overlay-highscore-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 220px;
+}
+
+.overlay-highscore-form.hidden {
+  display: none;
+}
+
+.overlay-highscore-form label {
+  font-size: 12px;
+  color: var(--overlay-score-color);
+}
+
+#player-name-input {
+  width: 100%;
+  background: var(--board-bg);
+  border: 1px solid var(--board-border);
+  border-radius: 4px;
+  color: var(--text);
+  padding: 8px 10px;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+#player-name-input:focus {
+  outline: 2px solid var(--value-color);
+  outline-offset: 1px;
 }

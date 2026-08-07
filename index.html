@@ -64,6 +64,22 @@
       </aside>
     </div>
 
+    <div id="start-screen" class="overlay">
+      <div class="overlay-box">
+        <p class="start-title">TETRIS</p>
+        <div class="highscores">
+          <p class="highscores-title">TOP 5</p>
+          <ol id="start-highscores-list" class="highscores-list"></ol>
+          <div class="stats-row">
+            <span>Mejor combo: <strong id="start-best-combo">0</strong></span>
+            <span>Máx. líneas: <strong id="start-max-lines">0</strong></span>
+          </div>
+        </div>
+        <button id="play-btn">Jugar</button>
+        <button id="reset-records-btn" class="secondary-btn">Resetear récords</button>
+      </div>
+    </div>
+
     <div id="overlay" class="overlay hidden">
       <div class="overlay-box">
         <p id="overlay-title">GAME OVER</p>
@@ -87,6 +103,21 @@
               <li><kbd>Space</kbd> caída</li>
               <li><kbd>P</kbd> / <kbd>Esc</kbd> pausa</li>
             </ul>
+          </div>
+        </div>
+
+        <div id="overlay-highscore-form" class="overlay-highscore-form hidden">
+          <label for="player-name-input">¡Nuevo récord! Ingresa tu nombre:</label>
+          <input type="text" id="player-name-input" maxlength="12" placeholder="JUGADOR" autocomplete="off" />
+          <button id="save-name-btn">Guardar</button>
+        </div>
+
+        <div id="overlay-highscores" class="highscores hidden">
+          <p class="highscores-title">TOP 5</p>
+          <ol id="overlay-highscores-list" class="highscores-list"></ol>
+          <div class="stats-row">
+            <span>Mejor combo: <strong id="overlay-best-combo">0</strong></span>
+            <span>Máx. líneas: <strong id="overlay-max-lines">0</strong></span>
           </div>
         </div>
 
