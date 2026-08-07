@@ -225,6 +225,142 @@ kbd {
   align-items: center;
 }
 
+.overlay-box.hidden {
+  display: none;
+}
+
+/* ---- Menú de pausa ---- */
+#pause-menu {
+  gap: 18px;
+  min-width: 230px;
+}
+
+.menu-title {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 6px;
+  color: var(--overlay-score-color);
+}
+
+.menu-view {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: stretch;
+  width: 100%;
+}
+
+.menu-view.hidden {
+  display: none;
+}
+
+.menu-btn {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--kbd-border);
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.menu-btn:hover,
+.menu-btn:focus-visible {
+  background: var(--restart-bg);
+  color: var(--restart-text);
+  border-color: var(--restart-bg);
+  outline: none;
+}
+
+.menu-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.menu-row-label {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--label-color);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stepper-btn {
+  width: 24px;
+  height: 24px;
+  background: var(--kbd-bg);
+  color: var(--text);
+  border: 1px solid var(--kbd-border);
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 1;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.stepper-btn:hover:not(:disabled),
+.stepper-btn:focus-visible {
+  background: var(--restart-bg);
+  color: var(--restart-text);
+  outline: none;
+}
+
+.stepper-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.stepper-value {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--value-color);
+  min-width: 24px;
+}
+
+.menu-hint {
+  font-size: 10px;
+  color: var(--controls-text);
+  text-align: center;
+}
+
+.menu-controls-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.menu-controls-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--controls-text);
+}
+
+.menu-controls-list .keys {
+  display: flex;
+  gap: 3px;
+  min-width: 74px;
+  justify-content: flex-end;
+}
+
 #overlay-title {
   font-size: 28px;
   font-weight: 800;

@@ -48,14 +48,45 @@
             <li><kbd>↑</kbd> rotar</li>
             <li><kbd>↓</kbd> bajar</li>
             <li><kbd>Space</kbd> caída</li>
-            <li><kbd>P</kbd> pausa</li>
+            <li><kbd>P</kbd><kbd>Esc</kbd> pausa</li>
           </ul>
         </div>
       </aside>
     </div>
 
     <div id="overlay" class="overlay hidden">
-      <div class="overlay-box">
+      <div id="pause-menu" class="overlay-box hidden" role="dialog" aria-modal="true" aria-labelledby="pause-title">
+        <p id="pause-title" class="menu-title">PAUSA</p>
+
+        <div id="menu-main" class="menu-view">
+          <button class="menu-btn" id="resume-btn">Reanudar</button>
+          <button class="menu-btn" id="menu-restart-btn">Reiniciar</button>
+          <button class="menu-btn" id="controls-btn">Ver controles</button>
+
+          <div class="menu-row">
+            <span class="menu-row-label">Nivel inicial</span>
+            <div class="stepper">
+              <button class="stepper-btn" id="level-down" aria-label="Bajar nivel inicial">−</button>
+              <span class="stepper-value" id="start-level-value" aria-live="polite">1</span>
+              <button class="stepper-btn" id="level-up" aria-label="Subir nivel inicial">+</button>
+            </div>
+          </div>
+          <p class="menu-hint">Se aplica al iniciar una nueva partida</p>
+        </div>
+
+        <div id="menu-controls" class="menu-view hidden">
+          <ul class="menu-controls-list">
+            <li><span class="keys"><kbd>←</kbd><kbd>→</kbd></span> mover pieza</li>
+            <li><span class="keys"><kbd>↑</kbd><kbd>X</kbd></span> rotar</li>
+            <li><span class="keys"><kbd>↓</kbd></span> bajar (soft drop)</li>
+            <li><span class="keys"><kbd>Space</kbd></span> caída instantánea</li>
+            <li><span class="keys"><kbd>P</kbd><kbd>Esc</kbd></span> pausa / reanudar</li>
+          </ul>
+          <button class="menu-btn" id="controls-back-btn">Volver</button>
+        </div>
+      </div>
+
+      <div id="gameover-box" class="overlay-box hidden">
         <p id="overlay-title">GAME OVER</p>
         <p id="overlay-score"></p>
         <button id="restart-btn">Reiniciar</button>
