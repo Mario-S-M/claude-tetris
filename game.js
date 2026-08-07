@@ -277,10 +277,12 @@ function setStartLevel(value) {
     stepper.up.disabled = startLevel === MAX_LEVEL;
   }
   storageSet('startLevel', startLevel);
-  // en la pantalla de inicio el HUD refleja el nivel con el que se empezará
+  // en la pantalla de inicio el HUD refleja el nivel con el que se empezará.
+  // Solo se toca `levelEl`: en el arranque el resto del estado (score, lines,
+  // combo) todavía no existe y `updateHUD()` fallaría.
   if (!started) {
     level = startLevel;
-    updateHUD();
+    levelEl.textContent = level;
   }
 }
 
